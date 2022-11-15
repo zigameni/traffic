@@ -62,11 +62,31 @@ def load_data(data_dir):
     images = []
     labels = []
     
+    # getting the root directory of all the data. 
+    root = os.path.join(os.getcwd(), data_dir) 
     
-    
-    
-    
-    raise NotImplementedError
+    # getting the list of all the subdirs within the data folder, 
+    # each is a label for our model
+    subdirs = sorted([int(i) for i in os.listdir(root)])
+
+    for subdir in subdirs:
+        for filename in os.listdir(os.path.join(root, str(subdir))):
+            # loading the ima file using the opencv module
+            #image path, we dont need to seperate this, but it has batter readability
+            imagepath = os.path.join(root, str(subdir), filename)
+            img = cv2.imread(imagepath) 
+
+            # resizing the image matrix to make it suitable for reading into the nural net
+            resized_img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT), interpolation = cv2.INTER_AREA)
+
+            # store image into list. 
+            images.append(resized_img)
+            
+            # each subdir is the name of the sign 
+            labels.append(subdir)
+
+
+    return (images, labels)
 
 
 def get_model():
