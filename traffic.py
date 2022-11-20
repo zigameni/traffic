@@ -123,7 +123,7 @@ def get_model():
         tf.keras.layers.Dense(128, activation='relu'),
 
         # to avoid overfitting we add anouth drop out
-        tf.keras.layers.Dropout(0.2),
+        # tf.keras.layers.Dropout(0.2),
 
         # Adding an output layer with N neurons for all categories
         tf.keras.layers.Dense(NUM_CATEGORIES, activation='softmax')
